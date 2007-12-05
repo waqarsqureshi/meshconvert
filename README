@@ -1,0 +1,6 @@
+This project provides converters for mesh files used by finite element applications.
+
+To install this program, run
+  ./setup.py install
+
+Denis Barbier <barbier@linuxfr.org>
