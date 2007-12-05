@@ -1,0 +1,63 @@
+#! /usr/bin/env python
+
+def usage():
+	print """Usage: meshconvert [options] INPUTFILE OUTPUTFILE
+Options:
+  -I,--input-format=FORMAT    Set input format
+  -O,--output-format=FORMAT   Set output format
+"""
+
+formats = {
+	(".unv",): "unv",
+	(".mesh", ".msh"): "mesh",
+	(".grd",): "gridgen",
+	(".vtp",): "vtk",
+	(".ply",): "ply",
+}
+
+def getFormat(file, flag):
+	try:
+		suffix = file[file.rindex("."):].lower()
+		for list, format in formats.iteritems():
+			if suffix in list:
+				return format
+		raise ValueError
+	except ValueError:
+		raise ValueError, "Cannot guess file format for "+file+", please specify one with "+flag+" flag"
+
+def main(argv):
+	import getopt
+	inputFormat = None
+	outputFormat = None
+	try:
+		opts = getopt.getopt(argv[1:],"hI:O:")
+		for opt,optarg in opts[0]:
+			if opt == "-h":
+				usage()
+				sys.exit(0)
+			elif opt == "-I":
+				inputFormat = optarg
+			elif opt == "-O":
+				outputFormat = optarg
+	except getopt.GetoptError,e:
+		print >>sys.stderr,"ERROR: %s" % e
+		sys.exit(-1)
+	inputFile, outputFile = opts[1]
+	if not inputFormat:
+		inputFormat = getFormat(inputFile, "-I")
+	if not outputFormat:
+		outputFormat = getFormat(outputFile, "-O")
+	try:
+		inputModule =  __import__("meshconvert."+inputFormat, globals(),  locals(), [""])
+	except ImportError:
+		raise ValueError, "Unknown mesh format: "+inputFormat
+	try:
+		outputModule =  __import__("meshconvert."+outputFormat, globals(),  locals(), [""])
+	except ImportError:
+		raise ValueError, "Unknown mesh format: "+outputFormat
+	outputModule.writer(outputFile, inputModule.reader(inputFile))
+
+if __name__ == "__main__":
+	import sys
+	main(sys.argv)
+
