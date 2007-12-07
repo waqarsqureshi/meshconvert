@@ -1,3 +1,6 @@
+2007-12-07 Denis Barbier <barbier@linuxfr.org>
+
+	* scripts/meshconvert: Replace getopt by optparse.
 
 2007-12-06 Denis Barbier <barbier@linuxfr.org>
 
