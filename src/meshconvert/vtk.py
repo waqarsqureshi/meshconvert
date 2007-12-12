@@ -79,5 +79,5 @@ def writer(file, reader):
 		f.write(line)
 	f.close()
 
-	map(posix.remove, list)
+	[posix.remove(f) for f in list]
 
