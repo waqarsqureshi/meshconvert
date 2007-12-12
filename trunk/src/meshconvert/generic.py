@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 
-import string
 import logging
 
 logger=logging.getLogger(__name__)
@@ -18,9 +17,10 @@ class reader(object):
 	def getline(self):
 		"Reads a line from file"
 		self.lineno += 1
-		line = self.f.readline().rstrip()
+		line = self.f.readline()
 		if (line == ""):
 			raise IOError
+		line = line.rstrip()
 		if self.logger.isEnabledFor(logging.DEBUG):
 			self.logger.debug("Reading line %d: %s" % (self.lineno, line))
 		return line
@@ -44,5 +44,5 @@ class indexedElement(object):
 		self.label = label
 		self.color = color
 		if logger.isEnabledFor(logging.DEBUG):
-			logger.debug("found element label=%s (%s) color=%s" % (self.label, string.join(",", self.list), self.color))
+			logger.debug("found element label=%s (%s) color=%s" % (self.label, ",".join(self.list), self.color))
 
