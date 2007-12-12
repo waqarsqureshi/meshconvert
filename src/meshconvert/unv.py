@@ -2,7 +2,7 @@
 
 # I-Deas Universal file format.  References?
 
-import re, string
+import re
 import logging
 import generic
 
@@ -92,7 +92,7 @@ def writer(file, reader):
 			nodeCounter += 1
 			f.write("%10s         1         1%10s\n" % (n.label, n.color))
 			c = [normFloat(i) for i in [n.x, n.y, n.z]]
-			f.write(string.join(c, "")+"\n")
+			f.write("".join(c)+"\n")
 			nodeIndices[n.label] = str(nodeCounter)
 	except StopIteration:
 		pass
@@ -106,7 +106,7 @@ def writer(file, reader):
 		while True:
 			e = elements.next()
 			f.write("%10s%10s         1         1         1%10d\n" % (e.label, fem2unv[e.type], len(e.list)))
-			f.write(string.join(["%10s" % (nodeIndices[i]) for i in e.list], "")+"\n")
+			f.write("".join(["%10s" % (nodeIndices[i]) for i in e.list])+"\n")
 			elementCounter += 1
 	except StopIteration:
 		pass
