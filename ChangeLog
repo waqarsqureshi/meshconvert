@@ -1,3 +1,10 @@
+2007-12-12 Denis Barbier <barbier@linuxfr.org>
+
+	* src/meshconvert/generic.py (getline): Blank lines
+	were treated as EOF.
+	* src/meshconvert/mesh.py: Add a simple reader, it only
+	accepts triangles.
+
 2007-12-07 Denis Barbier <barbier@linuxfr.org>
 
 	* scripts/meshconvert: Replace getopt by optparse.
