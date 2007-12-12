@@ -95,7 +95,6 @@ def writer(file, reader):
 			f.write(string.join(c, "")+"\n")
 			nodeIndices[n.label] = str(nodeCounter)
 	except StopIteration:
-
 		pass
 	f.write("""    -1
     -1
