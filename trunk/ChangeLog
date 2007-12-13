@@ -4,6 +4,7 @@
 	  src/meshconvert/mesh.py
 	  src/meshconvert/unv.py: Add an optional 'string' argument to
 	__init__() to allow using StringIO.
+	* src/meshconvert/tests: Initial support for unit tests.
 
 2007-12-12 Denis Barbier <barbier@linuxfr.org>
 
