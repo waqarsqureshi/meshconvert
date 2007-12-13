@@ -3,7 +3,7 @@
 # Mesh file format for medit.  See file format description (French only) in
 #  http://www.ann.jussieu.fr/~frey/logiciels/Docmedit.dir/Fichiers/formatmesh.pdf
 
-import glob, fileinput, posix
+import tempfile
 import logging
 import generic
 
@@ -58,8 +58,8 @@ def writer(file, reader, string=False):
 	else:
 		out = open(file, "w")
 
-	f = open(file+"-part1", "w")
-	f.write("""
+	tempFiles = [tempfile.TemporaryFile(mode='w+') for i in range(5)]
+	tempFiles[0].write("""
 MeshVersionFormatted 1
 
 Dimension
@@ -69,9 +69,7 @@ Geometry
 """+'"'+file+'"'+"""
 
 """)
-	f.close()
 
-	f = open(file+"-part3", "w")
 	nodeIndices = {}
 	nodes = reader.readNode()
 	nodeCounter = 0
@@ -80,53 +78,42 @@ Geometry
 			n = nodes.next()
 			nodeCounter += 1
 			nodeIndices[n.label] = str(nodeCounter)
-			f.write(n.x+" "+n.y+" "+n.z+" "+n.color+"\n")
+			tempFiles[2].write(n.x+" "+n.y+" "+n.z+" "+n.color+"\n")
 	except StopIteration:
 		pass
-	f.close()
 
-	f = open(file+"-part2", "w")
-	f.write("""
-Vertices
-""")
-	f.write(str(nodeCounter)+"\n")
-	f.close()
+	tempFiles[1].write("\nVertices\n"+str(nodeCounter)+"\n")
 
-	f = open(file+"-part5", "w")
 	elements = reader.readElementIndexed()
 	elementCounter = 0
 	try:
 		while True:
 			e = elements.next()
 			assert e.type == "Tri3"
-			f.write(" ".join([nodeIndices[i] for i in e.list])+" "+e.color+"\n")
+			tempFiles[4].write(" ".join([nodeIndices[i] for i in e.list])+" "+e.color+"\n")
 			elementCounter += 1
 	except StopIteration:
 		pass
 
-	f.write("""
+	tempFiles[4].write("""
 SubDomainFromMesh
 1
 3 1 1 1
 
 End
 """)
-	f.close()
 
-	f = open(file+"-part4", "w")
-	f.write("""
-Triangles
-""")
-	f.write(str(elementCounter)+"\n")
-	f.close()
+	tempFiles[3].write("\nTriangles\n"+str(elementCounter)+"\n")
 
-	list = glob.glob(file+"-part[1-5]")
-	list.sort()
+	for f in tempFiles:
+		f.seek(0)
+		while True:
+			line = f.readline()
+			if line == "":
+				break
+			out.write(line)
+		f.close
 
-	for line in fileinput.input(list):
-		out.write(line)
 	if not string:
 		out.close()
-
-	[posix.remove(f) for f in list]
 
