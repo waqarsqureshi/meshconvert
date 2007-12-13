@@ -8,14 +8,17 @@ logger=logging.getLogger(__name__)
 class reader(object):
 	indexed = False
 
-	def __init__(self, file):
+	def __init__(self, file, string=False):
 		"Opens file for reading"
-		self.f = open(file, "r")
+		if (string):
+			self.f = file
+		else:
+			self.f = open(file, "r")
 		self.lineno = 0
 		self.logger=logging.getLogger(__name__)
 
 	def getline(self):
-		"Reads a line from file"
+		"Reads a line from file.  Raises IOError at EOF."
 		self.lineno += 1
 		line = self.f.readline()
 		if (line == ""):

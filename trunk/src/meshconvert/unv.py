@@ -75,11 +75,14 @@ class reader(generic.reader):
 def normFloat(s):
 	return ("%25.16e" % float(s)).replace("e", "D")
 
-def writer(file, reader):
+def writer(file, reader, string=False):
 	"Reads mesh from a reader and write it into a UNV file"
 	if not reader.indexed:
 		raise RuntimeError, "Cannot convert from non-indexed format to indexed format"
-	f = open(file, "w")
+	if string:
+		f = file
+	else:
+		f = open(file, "w")
 	f.write("""    -1
   2411
 """)
@@ -110,6 +113,7 @@ def writer(file, reader):
 			elementCounter += 1
 	except StopIteration:
 		pass
-	f.write("    -1")
-	f.close()
+	f.write("    -1\n")
+	if not string:
+		f.close()
 
