@@ -5,6 +5,8 @@
 	  src/meshconvert/unv.py: Add an optional 'string' argument to
 	__init__() to allow using StringIO.
 	* src/meshconvert/tests: Initial support for unit tests.
+	* src/meshconvert/mesh.py
+	  src/meshconvert/vtk.py: Use tempfile module for temporary files.
 
 2007-12-12 Denis Barbier <barbier@linuxfr.org>
 
