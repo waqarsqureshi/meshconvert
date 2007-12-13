@@ -48,9 +48,16 @@ class reader(generic.reader):
 			last = nodeList.pop()
 			yield generic.indexedElement("Tri3", nodeList, label=str(i+1), color=last)
 
-def writer(file, reader):
+def writer(file, reader, string=False):
+	"Reads mesh from a reader and write it into a MESH file"
 	if not reader.indexed:
 		raise RuntimeError, "Cannot convert from non-indexed format to indexed format"
+	if string:
+		out = file
+		file = ""
+	else:
+		out = open(file, "w")
+
 	f = open(file+"-part1", "w")
 	f.write("""
 MeshVersionFormatted 1
@@ -116,10 +123,10 @@ Triangles
 	list = glob.glob(file+"-part[1-5]")
 	list.sort()
 
-	f = open(file, "w")
 	for line in fileinput.input(list):
-		f.write(line)
-	f.close()
+		out.write(line)
+	if not string:
+		out.close()
 
 	[posix.remove(f) for f in list]
 
