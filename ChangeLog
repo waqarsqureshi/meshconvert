@@ -1,3 +1,7 @@
+2007-12-17 Denis Barbier <barbier@linuxfr.org>
+
+	* src/meshconvert/unv.py: Store seen numbered sections in self.seen.
+
 2007-12-13 Denis Barbier <barbier@linuxfr.org>
 
 	* src/meshconvert/generic.py
