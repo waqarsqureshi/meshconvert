@@ -49,3 +49,9 @@ class indexedElement(object):
 		if logger.isEnabledFor(logging.DEBUG):
 			logger.debug("found element label=%s (%s) color=%s" % (self.label, ",".join(self.list), self.color))
 
+class element(object):
+	def __init__(self, type, list):
+		"Mesh element"
+		self.type = type
+		self.list = list
+
