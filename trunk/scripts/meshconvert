@@ -9,6 +9,7 @@ formats = {
 	(".vtp",): "vtk",
 	(".ply",): "ply",
 	(".off",): "off",
+	(".stl",): "stl",
 }
 
 def getFormat(file, flag):

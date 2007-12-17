@@ -3,6 +3,7 @@
 	* src/meshconvert/unv.py: Store seen numbered sections in self.seen.
 	* src/meshconvert/off.py: Implement writer.
 	* src/meshconvert/ply.py: Implement writer.
+	* src/meshconvert/stl.py: Partially implement reader and writer.
 
 2007-12-13 Denis Barbier <barbier@linuxfr.org>
 
