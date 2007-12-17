@@ -14,6 +14,10 @@ for k, v in unv2fem.items():
 class reader(generic.reader):
 	indexed = True
 
+	def __init__(self, file, *args):
+		super(reader, self).__init__(file, *args)
+		self.seen = {}
+
 	def _goToNextMark(self):
 		"Reads lines until next -1 mark"
 		while True:
@@ -32,6 +36,7 @@ class reader(generic.reader):
 				#  Err, maybe we were into a section, read another line
 				line = self.getline()
 			line = line.strip()
+			self.seen[line] = True
 			if (line == number):
 				if self.logger.isEnabledFor(logging.DEBUG):
 					self.logger.debug("Section %s found" % number)
@@ -60,6 +65,8 @@ class reader(generic.reader):
 			self._section("2412")
 		except IOError:
 			# EOF reached, reset file
+			if "2412" not in self.seen:
+				raise IOError, "Section %s not found" % "2412"
 			self.f.seek(0)
 			self._section("2412")
 
