@@ -26,9 +26,9 @@ def writer(file, reader, string=False):
 	try:
 		while True:
 			n = nodes.next()
-			nodeCounter += 1
 			nodeIndices[n.label] = str(nodeCounter)
 			tempFiles[1].write(n.x+" "+n.y+" "+n.z+"\n")
+			nodeCounter += 1
 	except StopIteration:
 		pass
 
