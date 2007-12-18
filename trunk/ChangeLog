@@ -1,3 +1,7 @@
+2007-12-18 Denis Barbier <barbier@linuxfr.org>
+
+	* src/meshconvert/obj.py: Partially implement reader and writer.
+
 2007-12-17 Denis Barbier <barbier@linuxfr.org>
 
 	* src/meshconvert/unv.py: Store seen numbered sections in self.seen.
