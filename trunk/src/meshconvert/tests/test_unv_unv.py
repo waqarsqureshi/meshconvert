@@ -4,13 +4,13 @@ import unittest
 import os, sys
 import StringIO
 
+# Run tests against current sources
 dirname = os.path.dirname(__file__)
 if (dirname == ''):
 	dirname = '.'
 dirname = os.path.realpath(dirname)
 parent = os.path.split(dirname)[0]
-if parent not in sys.path:
-	sys.path.append(parent)
+sys.path.insert(0, parent)
 
 import unv
 
