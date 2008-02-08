@@ -14,8 +14,8 @@ for k, v in unv2fem.items():
 class reader(generic.reader):
 	indexed = True
 
-	def __init__(self, file, *args):
-		super(reader, self).__init__(file, *args)
+	def __init__(self, file, *args, **kw):
+		super(reader, self).__init__(file, *args, **kw)
 		self.seen = {}
 
 	def _goToNextMark(self):
