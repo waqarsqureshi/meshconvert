@@ -1,3 +1,7 @@
+2008-02-08 Denis Barbier <barbier@linuxfr.org>
+
+	* src/meshconvert/off.py: Implement reader.
+
 2007-12-20 Denis Barbier <barbier@linuxfr.org>
 
 	* scripts/meshconvert

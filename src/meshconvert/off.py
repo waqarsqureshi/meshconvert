@@ -2,10 +2,41 @@
 
 # OFF file format  http://shape.cs.princeton.edu/benchmark/documentation/off_format.html
 
+import generic
+import string
 import tempfile
 
-def reader(file):
-	raise ValueError, "Module "+`__name__`+" does not define a reader method"
+class reader(generic.reader):
+	indexed = True
+
+	def __init__(self, file, *args, **kw):
+		"Opens OFF file for reading"
+		super(reader, self).__init__(file, *args, **kw)
+		#  Read number of nodes and elements
+		line = self.getline()
+		assert line == "OFF"
+		line = self.getline()
+		fields = line.split()
+		self.nrNodes = int(fields[0])
+		self.nrElements = int(fields[1])
+		#logging.basicConfig(level=logging.DEBUG)
+
+	def readNode(self):
+		"Gets next node"
+		for i in xrange(self.nrNodes):
+			line = self.getline()
+			coord = line.split()
+			yield generic.node(coord[0], coord[1], coord[2], label=str(i+1))
+
+	def readElementIndexed(self):
+		"Gets next element"
+		for i in xrange(self.nrElements):
+			line = self.getline()
+			fields = line.split()
+			assert fields[0] == '3'
+			fields.pop(0)
+			nodeList = [str(string.atoi(k)+1) for k in fields]
+			yield generic.indexedElement("Tri3", nodeList, label=str(i+1))
 
 def writer(file, reader, string=False):
 	"Reads mesh from a reader and write it into a OFF file"
