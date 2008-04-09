@@ -56,10 +56,11 @@ class reader(generic.reader):
 			line = self.getline()
 			label = line.split()[1]
 			line = self.getline()
+			color = line.split()[2]
 			line = self.getline()
 			nodeList = line.split()
 			self.counterElements += 1
-			yield generic.indexedElement("Tri3", nodeList, label=label)
+			yield generic.indexedElement("Tri3", nodeList, label=label, color=color)
 
 def writer(file, reader):
 	raise ValueError, "Module "+`__name__`+" does not define a writer method"
