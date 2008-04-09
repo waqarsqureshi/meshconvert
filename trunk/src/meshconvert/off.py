@@ -5,6 +5,7 @@
 import generic
 import string
 import tempfile
+import logging
 
 class reader(generic.reader):
 	indexed = True
@@ -16,10 +17,12 @@ class reader(generic.reader):
 		line = self.getline()
 		assert line == "OFF"
 		line = self.getline()
+		# Ignore number of edges
 		fields = line.split()
 		self.nrNodes = int(fields[0])
 		self.nrElements = int(fields[1])
-		#logging.basicConfig(level=logging.DEBUG)
+		if self.logger.isEnabledFor(logging.DEBUG):
+			self.logger.debug("Mesh contains %d vertices and %d elements" % (self.nrNodes, self.nrElements))
 
 	def readNode(self):
 		"Gets next node"
