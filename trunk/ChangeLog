@@ -2,6 +2,8 @@
 
 	* src/meshconvert/gridgen.py (readElementIndexed): Read color
 	attributes.
+	* src/meshconvert/stl.py (readElement): 'endsolid' may be followed
+	by geometry name.
 
 2008-02-08 Denis Barbier <barbier@linuxfr.org>
 
