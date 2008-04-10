@@ -13,7 +13,7 @@ class reader(generic.reader):
 				break
 		while True:
 			line = self.getline().strip()
-			if (line == "endsolid"):
+			if (line.startswith("endsolid")):
 				return
 			assert line.startswith("facet ")
 			line = self.getline().strip()
