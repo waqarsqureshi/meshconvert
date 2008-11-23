@@ -31,9 +31,9 @@ class unvTest(unittest.TestCase):
     -1
 """
 	def test1(self):
-		reader = unv.reader(StringIO.StringIO(self.strTest1), string=True)
+		reader = unv.reader(StringIO.StringIO(self.strTest1))
 		outputString = StringIO.StringIO()
-		unv.writer(outputString, reader, string=True)
+		unv.writer(outputString, reader)
 		res = outputString.getvalue()
 		outputString.close()
 		self.assertEquals(res, self.strTest1)

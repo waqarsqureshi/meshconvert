@@ -6,6 +6,9 @@ import tempfile
 import struct
 import logging
 
+modeR = 'rb'
+modeW = 'wb'
+
 def reader(file):
 	raise ValueError, "Module "+`__name__`+" does not define a reader method"
 
@@ -61,12 +64,10 @@ def writer(file, reader):
 
 	tempFiles[5].write('</AppendedData></VTKFile>\n')
 
-	out = open(file, "wb")
 	for f in tempFiles:
 		f.seek(0)
 		# TODO: This is a binary file, we should use a better alternative
 		for line in f:
-			out.write(line)
+			file.write(line)
 		f.close()
-	out.close()
 

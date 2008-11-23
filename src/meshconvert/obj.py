@@ -5,6 +5,9 @@
 
 import generic
 
+modeR = 'r'
+modeW = 'w'
+
 class reader(generic.reader):
 	indexed = True
 
@@ -43,15 +46,10 @@ class reader(generic.reader):
 		except IOError:
 			return
 
-def writer(file, reader, string=False):
+def writer(file, reader):
 	"Reads mesh from a reader and write it into an OBJ file"
 	if not reader.indexed:
 		reader = generic.soup2indexed(reader)
-	if string:
-		out = file
-		file = ""
-	else:
-		out = open(file, "w")
 
 	nodeIndices = {}
 	nodes = reader.readNode()
@@ -61,7 +59,7 @@ def writer(file, reader, string=False):
 			n = nodes.next()
 			nodeCounter += 1
 			nodeIndices[n.label] = str(nodeCounter)
-			out.write("v "+n.x+" "+n.y+" "+n.z+"\n")
+			file.write("v "+n.x+" "+n.y+" "+n.z+"\n")
 	except StopIteration:
 		pass
 
@@ -71,10 +69,7 @@ def writer(file, reader, string=False):
 		while True:
 			e = elements.next()
 			elementCounter += 1
-			out.write("f "+" ".join([nodeIndices[i] for i in e.list])+"\n")
+			file.write("f "+" ".join([nodeIndices[i] for i in e.list])+"\n")
 	except StopIteration:
 		pass
-
-	if not string:
-		out.close()
 

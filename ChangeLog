@@ -4,6 +4,8 @@
 	read files written by STL writer.
 	* src/meshconvert/generic.py: New soup2indexed class to allow
 	writing indexed format when reader is not indexed.
+	* src/meshconvert/*.py: In reader and writer constructors, let first
+	argument be of 'file' type instead of 'string'.
 
 2008-04-09 Denis Barbier <barbier@linuxfr.org>
 

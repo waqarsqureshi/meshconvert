@@ -6,6 +6,9 @@ import logging, struct
 import re
 import generic
 
+modeR = 'r'
+modeW = 'w'
+
 class reader(generic.reader):
 	indexed = True
 
