@@ -68,7 +68,7 @@ class reader(generic.reader):
 def writer(file, reader, string=False):
 	"Reads mesh from a reader and write it into a PLY file"
 	if not reader.indexed:
-		raise RuntimeError, "Cannot convert from non-indexed format to indexed format"
+		reader = generic.soup2indexed(reader)
 	if string:
 		out = file
 		file = ""

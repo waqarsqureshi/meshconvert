@@ -11,7 +11,7 @@ def reader(file):
 
 def writer(file, reader):
 	if not reader.indexed:
-		raise RuntimeError, "Cannot convert from non-indexed format to indexed format"
+		reader = generic.soup2indexed(reader)
 	logger=logging.getLogger(__name__)
 	#logging.basicConfig(level=logging.DEBUG)
 
