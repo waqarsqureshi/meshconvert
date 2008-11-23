@@ -7,6 +7,9 @@ import tempfile
 import logging
 import generic
 
+modeR = 'r'
+modeW = 'w'
+
 class reader(generic.reader):
 	indexed = True
 
@@ -48,15 +51,15 @@ class reader(generic.reader):
 			last = nodeList.pop()
 			yield generic.indexedElement("Tri3", nodeList, label=str(i+1), color=last)
 
-def writer(file, reader, string=False):
+def writer(file, reader):
 	"Reads mesh from a reader and write it into a MESH file"
 	if not reader.indexed:
 		reader = generic.soup2indexed(reader)
-	if string:
-		out = file
-		file = ""
-	else:
-		out = open(file, "w")
+
+	try:
+		name = file.name
+	except AttributeError:
+		name = ""
 
 	tempFiles = [tempfile.TemporaryFile(mode='w+') for i in range(5)]
 	tempFiles[0].write("""
@@ -66,7 +69,7 @@ Dimension
 3
 
 Geometry
-"""+'"'+file+'"'+"""
+"""+'"'+name+'"'+"""
 
 """)
 
@@ -111,9 +114,6 @@ End
 			line = f.readline()
 			if line == "":
 				break
-			out.write(line)
+			file.write(line)
 		f.close
-
-	if not string:
-		out.close()
 

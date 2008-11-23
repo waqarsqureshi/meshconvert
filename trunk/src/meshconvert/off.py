@@ -7,6 +7,9 @@ import string
 import tempfile
 import logging
 
+modeR = 'r'
+modeW = 'w'
+
 class reader(generic.reader):
 	indexed = True
 
@@ -41,15 +44,10 @@ class reader(generic.reader):
 			nodeList = [str(string.atoi(k)+1) for k in fields]
 			yield generic.indexedElement("Tri3", nodeList, label=str(i+1))
 
-def writer(file, reader, string=False):
+def writer(file, reader):
 	"Reads mesh from a reader and write it into a OFF file"
 	if not reader.indexed:
 		reader = generic.soup2indexed(reader)
-	if string:
-		out = file
-		file = ""
-	else:
-		out = open(file, "w")
 
 	tempFiles = [tempfile.TemporaryFile(mode='w+') for i in range(2)]
 	tempFiles[0].write("OFF\n")
@@ -86,9 +84,6 @@ def writer(file, reader, string=False):
 			line = f.readline()
 			if line == "":
 				break
-			out.write(line)
+			file.write(line)
 		f.close
-
-	if not string:
-		out.close()
 

@@ -42,9 +42,9 @@ SubDomainFromMesh
 End
 """
 	def test1(self):
-		reader = mesh.reader(StringIO.StringIO(self.strTest1), string=True)
+		reader = mesh.reader(StringIO.StringIO(self.strTest1))
 		outputString = StringIO.StringIO()
-		mesh.writer(outputString, reader, string=True)
+		mesh.writer(outputString, reader)
 		res = outputString.getvalue()
 		outputString.close()
 		self.assertEquals(res, self.strTest1)

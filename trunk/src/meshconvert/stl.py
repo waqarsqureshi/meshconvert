@@ -4,6 +4,9 @@
 
 import generic
 
+modeR = 'r'
+modeW = 'w'
+
 class reader(generic.reader):
 	def readElement(self):
 		"Gets next element."
@@ -32,13 +35,8 @@ class reader(generic.reader):
 			yield generic.element("Tri3", coord)
 
 
-def writer(file, reader, string=False):
+def writer(file, reader):
 	"Reads mesh from a reader and write it into a STL file"
-	if string:
-		out = file
-		file = ""
-	else:
-		out = open(file, "w")
 
 	if reader.indexed:
 		nodeCoord = {}
@@ -53,38 +51,35 @@ def writer(file, reader, string=False):
 
 		elements = reader.readElementIndexed()
 		elementCounter = 0
-		out.write("solid\n")
+		file.write("solid\n")
 		try:
 			while True:
 				e = elements.next()
 				assert e.type == "Tri3"
-				out.write(" facet\n")
-				out.write("  outer loop\n")
+				file.write(" facet\n")
+				file.write("  outer loop\n")
 				for i in xrange(3):
-					out.write("   vertex "+" ".join(nodeCoord[e.list[i]])+"\n")
-				out.write("  endloop\n")
-				out.write(" endfacet\n")
+					file.write("   vertex "+" ".join(nodeCoord[e.list[i]])+"\n")
+				file.write("  endloop\n")
+				file.write(" endfacet\n")
 				elementCounter += 1
 		except StopIteration:
 			pass
-		out.write("endsolid\n")
+		file.write("endsolid\n")
 	else:
 		elements = reader.readElement()
-		out.write("solid\n")
+		file.write("solid\n")
 		try:
 			while True:
 				e = elements.next()
 				assert e.type == "Tri3"
-				out.write(" facet\n")
-				out.write("  outer loop\n")
+				file.write(" facet\n")
+				file.write("  outer loop\n")
 				for i in xrange(3):
-					out.write("   vertex "+" ".join(e.list[i])+"\n")
-				out.write("  endloop\n")
-				out.write(" endfacet\n")
+					file.write("   vertex "+" ".join(e.list[i])+"\n")
+				file.write("  endloop\n")
+				file.write(" endfacet\n")
 		except StopIteration:
 			pass
-		out.write("endsolid\n")
-
-	if not string:
-		out.close()
+		file.write("endsolid\n")
 

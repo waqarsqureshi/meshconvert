@@ -49,7 +49,7 @@ def cli(argv, prog=None):
 		outputModule =  __import__("meshconvert."+outputFormat, globals(),  locals(), [""])
 	except ImportError:
 		raise ValueError, "Unknown mesh format: "+outputFormat
-	outputModule.writer(outputFile, inputModule.reader(inputFile))
+	outputModule.writer(open(outputFile, outputModule.modeW), inputModule.reader(open(inputFile, inputModule.modeR)))
 
 if __name__ == "__main__":
 	cli(sys.argv[1:], prog=sys.argv[0])

@@ -5,15 +5,15 @@ import logging
 logger=logging.getLogger(__name__)
 #logging.basicConfig(level=logging.DEBUG)
 
+modeR = 'r'
+modeW = 'w'
+
 class reader(object):
 	indexed = False
 
-	def __init__(self, file, string=False):
+	def __init__(self, file):
 		"Opens file for reading"
-		if (string):
-			self.f = file
-		else:
-			self.f = open(file, "r")
+		self.f = file
 		self.lineno = 0
 		self.logger=logging.getLogger(__name__)
 

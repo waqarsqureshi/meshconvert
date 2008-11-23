@@ -6,6 +6,9 @@ import re
 import logging
 import generic
 
+modeR = 'r'
+modeW = 'w'
+
 unv2fem = { "91": "Tri3", "94": "Quad4" }
 fem2unv = {}
 for k, v in unv2fem.items():
@@ -82,15 +85,11 @@ class reader(generic.reader):
 def normFloat(s):
 	return ("%25.16e" % float(s)).replace("e", "D")
 
-def writer(file, reader, string=False):
+def writer(file, reader):
 	"Reads mesh from a reader and write it into a UNV file"
 	if not reader.indexed:
 		reader = generic.soup2indexed(reader)
-	if string:
-		f = file
-	else:
-		f = open(file, "w")
-	f.write("""    -1
+	file.write("""    -1
   2411
 """)
 	nodeIndices = {}
@@ -100,13 +99,13 @@ def writer(file, reader, string=False):
 		while True:
 			n = nodes.next()
 			nodeCounter += 1
-			f.write("%10s         1         1%10s\n" % (n.label, n.color))
+			file.write("%10s         1         1%10s\n" % (n.label, n.color))
 			c = [normFloat(i) for i in [n.x, n.y, n.z]]
-			f.write("".join(c)+"\n")
+			file.write("".join(c)+"\n")
 			nodeIndices[n.label] = str(nodeCounter)
 	except StopIteration:
 		pass
-	f.write("""    -1
+	file.write("""    -1
     -1
   2412
 """)
@@ -115,12 +114,10 @@ def writer(file, reader, string=False):
 	try:
 		while True:
 			e = elements.next()
-			f.write("%10s%10s         1         1         1%10d\n" % (e.label, fem2unv[e.type], len(e.list)))
-			f.write("".join(["%10s" % (nodeIndices[i]) for i in e.list])+"\n")
+			file.write("%10s%10s         1         1         1%10d\n" % (e.label, fem2unv[e.type], len(e.list)))
+			file.write("".join(["%10s" % (nodeIndices[i]) for i in e.list])+"\n")
 			elementCounter += 1
 	except StopIteration:
 		pass
-	f.write("    -1\n")
-	if not string:
-		f.close()
+	file.write("    -1\n")
 
