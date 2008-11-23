@@ -2,6 +2,8 @@
 
 	* src/meshconvert/stl.py (readElement): STL reader was unable to
 	read files written by STL writer.
+	* src/meshconvert/generic.py: New soup2indexed class to allow
+	writing indexed format when reader is not indexed.
 
 2008-04-09 Denis Barbier <barbier@linuxfr.org>
 
