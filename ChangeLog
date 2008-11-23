@@ -1,3 +1,8 @@
+2008-11-24 Denis Barbier <barbier@linuxfr.org>
+
+	* src/meshconvert/stl.py (readElement): STL reader was unable to
+	read files written by STL writer.
+
 2008-04-09 Denis Barbier <barbier@linuxfr.org>
 
 	* src/meshconvert/gridgen.py (readElementIndexed): Read color

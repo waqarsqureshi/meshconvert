@@ -15,7 +15,7 @@ class reader(generic.reader):
 			line = self.getline().strip()
 			if (line.startswith("endsolid")):
 				return
-			assert line.startswith("facet ")
+			assert line.startswith("facet")
 			line = self.getline().strip()
 			assert line == "outer loop"
 			coord = []
