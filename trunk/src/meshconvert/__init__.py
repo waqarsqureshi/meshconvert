@@ -13,7 +13,7 @@ formats = {
 	(".off",): "off",
 	(".stl",): "stl",
 	(".obj",): "obj",
-	(".bin",): "soup",
+	(".soup",): "soupb",
 }
 
 def getFormat(file, flag):
