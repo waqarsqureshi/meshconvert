@@ -7,11 +7,13 @@ formats = {
 	(".unv",): "unv",
 	(".mesh", ".msh"): "mesh",
 	(".grd",): "gridgen",
+	(".grb",): "gridgenb",
 	(".vtp",): "vtk",
 	(".ply",): "ply",
 	(".off",): "off",
 	(".stl",): "stl",
 	(".obj",): "obj",
+	(".bin",): "soup",
 }
 
 def getFormat(file, flag):

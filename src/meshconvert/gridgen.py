@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Gridgen file format.  References?
+# Gridgen ASCII file format.  References?
 
 import logging, struct
 import re

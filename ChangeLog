@@ -1,6 +1,8 @@
 2008-11-25 Denis Barbier <barbier@linuxfr.org>
 
 	* src/meshconvert/generic.py: New element.color attribute.
+	* src/meshconvert/gridgenb.py: Implement reader for Gridgen
+	binary files.
 
 2008-11-24 Denis Barbier <barbier@linuxfr.org>
 
