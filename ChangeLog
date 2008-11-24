@@ -3,6 +3,8 @@
 	* src/meshconvert/generic.py: New element.color attribute.
 	* src/meshconvert/gridgenb.py: Implement reader for Gridgen
 	binary files.
+	* src/meshconvert/soupb.py: Implement writer for jCAE binary
+	triangle soups.
 
 2008-11-24 Denis Barbier <barbier@linuxfr.org>
 
