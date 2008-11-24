@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name = 'meshconvert',
-    version = '0.1',    
+    version = '0.2',    
     package_dir = {'':'src'},
     packages = ['meshconvert'],
     scripts = ['scripts/meshconvert'],
