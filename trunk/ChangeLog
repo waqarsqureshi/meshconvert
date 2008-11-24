@@ -1,3 +1,7 @@
+2008-11-25 Denis Barbier <barbier@linuxfr.org>
+
+	* src/meshconvert/generic.py: New element.color attribute.
+
 2008-11-24 Denis Barbier <barbier@linuxfr.org>
 
 	* src/meshconvert/stl.py (readElement): STL reader was unable to
