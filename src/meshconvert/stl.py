@@ -29,9 +29,9 @@ class reader(generic.reader):
 				nodeList.pop(0)
 				coord.append(nodeList)
 			line = self.getline().strip()
-			assert line == "endloop"
+			assert line == "endloop" or line == "end loop"
 			line = self.getline().strip()
-			assert line == "endfacet"
+			assert line == "endfacet" or line == "end facet"
 			yield generic.element("Tri3", coord)
 
 
