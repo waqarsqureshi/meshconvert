@@ -60,10 +60,11 @@ class indexedElement(object):
 			logger.debug("found element label=%s (%s) color=%s" % (self.label, ",".join(self.list), self.color))
 
 class element(object):
-	def __init__(self, type, list):
+	def __init__(self, type, list, color='0'):
 		"Mesh element"
 		self.type = type
 		self.list = list
+		self.color = color
 
 class soup2indexed(object):
 	def __init__(self, soupReader):
